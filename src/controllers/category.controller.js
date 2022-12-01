@@ -6,6 +6,12 @@ const createCategory = async (req, res) => {
   res.status(409).json({ message: 'Category already registered' });
 };
 
+const getAllCategories = async (_req, res) => {
+  const allCategories = await categoryService.getAllCategories();
+  res.status(200).json(allCategories);
+};
+
 module.exports = {
   createCategory,
+  getAllCategories,
 };
