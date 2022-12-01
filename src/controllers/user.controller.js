@@ -7,8 +7,15 @@ const getLogin = async (req, res) => {
   res.status(200).json({ token: user });
 };
 
-const getAll = async (_req, res) => {
-  const allUsers = await userLogin.getAll();
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const result = await userLogin.getUserById(id);
+  if (result) { return res.status(200).json(result); } 
+  res.status(404).json({ message: 'User does not exist' });
+};
+
+const getAllUser = async (_req, res) => {
+  const allUsers = await userLogin.getAllUser();
   res.status(200).json(allUsers);
 };
 
@@ -21,5 +28,6 @@ const createUser = async (req, res) => {
 module.exports = {
   getLogin,
   createUser,
-  getAll,
+  getAllUser,
+  getUserById,
 };

@@ -16,13 +16,19 @@ const getUsers = async (email, password) => {
   return result;
 };
 
-const getAll = async () => {
-  const result = await User.findAll();
-  return result.map(({ dataValues }) => {
-    console.log('map getAll', dataValues);
-    const { password: _, ...newUser } = dataValues;
-    return newUser;
+const getUserById = async (id) => {
+  const [result] = await User.findAll({
+    where: { id },
+    attributes: { exclude: ['password'] },
   });
+  return result;
+};
+
+const getAllUser = async () => {
+  const result = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
+  return result;
 };
 
 const getUserByEmail = async (findEmail) => {
@@ -39,6 +45,7 @@ const createUser = async (user) => {
 
 module.exports = {
   getUsers,
-  getAll,
+  getAllUser,
   createUser,
+  getUserById,
 };
